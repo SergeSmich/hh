@@ -1,0 +1,37 @@
+{
+    "name": "torapi",
+    "version": "0.5.2",
+    "main": "main.js",
+    "scripts": {
+        "start": "node main.js",
+        "dev": "nodemon main.js",
+        "docs": "node swagger/swagger-convert.js"
+    },
+    "keywords": [
+        "express",
+        "torrent",
+        "tracker",
+        "serverless"
+    ],
+    "author": "Lifailon",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^0.21.4",
+        "cheerio": "^1.0.0",
+        "cors": "^2.8.5",
+        "express": "^4.21.2",
+        "https-proxy-agent": "^7.0.6",
+        "iconv-lite": "^0.6.3",
+        "js-yaml": "^4.1.0",
+        "nodemon": "^2.0.22",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^5.0.1",
+        "xml2js": "^0.6.2",
+        "yargs": "^17.7.2"
+    },
+    "description": "Unofficial API (backend) for RuTracker, Kinozal, RuTor and NoNameClub.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Lifailon/TorAPI"
+    }
+}

@@ -1,0 +1,65 @@
+﻿/* Стили для страницы RSS */
+
+/* Сетка для RSS записей */
+#rss-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Одна колонка */
+    gap: 15px;
+    padding: 15px 0;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Стиль для отдельной RSS записи */
+.rss-item {
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+    border-radius: 6px;
+    padding: 15px 20px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+    cursor: pointer;
+}
+
+.rss-item:hover {
+    background-color: #454545;
+    border-color: #777;
+}
+
+.rss-item h3 { /* Заголовок записи */
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+    color: #e8e8e8;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.rss-item p { /* Текст внутри записи (дата, автор) */
+    margin: 2px 0;
+    font-size: 0.85em;
+    color: #b0b0b0;
+    text-align: left;
+}
+
+.rss-item p b { /* Метка (Автор:, Дата:) */
+    color: #d0d0d0;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+/* Стиль для фокуса геймпада */
+.rss-item.focused {
+    outline: 3px solid dodgerblue;
+    outline-offset: 1px;
+    border-color: dodgerblue;
+    transform: scale(1.01);
+    background-color: #484848;
+}
+
+/* Адаптация */
+@media (max-width: 768px) {
+    #rss-grid { padding: 10px 0; gap: 10px; }
+    .rss-item { padding: 12px 15px; }
+    .rss-item h3 { font-size: 1em; }
+    .rss-item p { font-size: 0.8em; }
+}

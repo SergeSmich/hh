@@ -1,0 +1,20 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "main.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET",
+                "Access-Control-Allow-Headers": "content-type"
+            },
+            "dest": "main.js"
+        }
+    ]
+}

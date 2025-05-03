@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Торрент Просмотрщик</title>
+    <link rel="stylesheet" href="style.css"> <!-- Используем основной стиль -->
+    <link rel="stylesheet" href="nav_panel.css"> <!-- Стиль для панели -->
+</head>
+<body>
+    <!--- Левая панель навигации --->
+    <nav id="side-panel" class="side-panel">
+        <button id="close-panel-btn" class="close-panel-btn">?</button>
+        <h2>Навигация</h2>
+        <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/index.html">Rutracker (Игры)</a></li>
+            <li><a href="/pornolab.html">Pornolab</a></li>
+            <li><a href="/rss_viewer.html">Rutracker RSS (Игры)</a></li>
+            <!-- Добавить другие ссылки по мере необходимости -->
+        </ul>
+        <hr>
+        <h2>Сортировка/Фильтр (Rutracker)</h2>
+        <div id="sort-filter-options">
+            <p>(Здесь будут опции)</p>
+            <!-- Пример: -->
+            <!-- <select id="genre-filter"> <option value="">Все жанры</option> </select> -->
+            <!-- <button id="apply-sort-filter">Применить</button> -->
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <div id="main-content">
+        <header>
+            <button id="open-panel-btn" class="open-panel-btn">?</button> <!-- Кнопка "бургер" -->
+            <h1>Торрент Просмотрщик</h1>
+            <p>Выберите раздел для просмотра</p>
+             <p id="gamepad-status">Геймпад не обнаружен.</p> <!-- Статус геймпада здесь тоже -->
+        </header>
+
+        <main class="home-main">
+             <!-- Кнопки для перехода -->
+             <a href="/index.html" class="nav-button" data-focus-index="0">
+                 <span class="nav-button-icon">??</span> Rutracker (Игры)
+             </a>
+             <a href="/pornolab.html" class="nav-button" data-focus-index="1">
+                 <span class="nav-button-icon">??</span> Pornolab
+             </a>
+             <a href="/rss_viewer.html" class="nav-button" data-focus-index="2">
+                  <span class="nav-button-icon">??</span> Rutracker RSS
+             </a>
+             <!-- Добавить кнопки для будущих разделов -->
+        </main>
+    </div>
+
+    <script src="nav_panel.js"></script> <!-- JS для панели -->
+    <script src="home.js"></script> <!-- JS для этой страницы -->
+</body>
+</html>

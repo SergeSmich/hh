@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutracker Viewer (Gamepad Control)</title>
+    <link rel="stylesheet" href="style.css"> <!-- Подключаем основной CSS -->
+    <link rel="stylesheet" href="nav_panel.css"> <!-- Подключаем CSS для панели -->
+</head>
+<body>
+    <!-- Левая панель навигации (id="side-panel") -->
+    <nav id="side-panel" class="side-panel">
+        <button id="close-panel-btn" class="close-panel-btn">×</button>
+        <h2>Навигация</h2>
+        <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/index.html">Rutracker (Игры)</a></li>
+            <li><a href="/pornolab.html">Pornolab</a></li>
+            <li><a href="/rss_viewer.html">Rutracker RSS (Игры)</a></li>
+            <!-- Добавить другие ссылки по мере необходимости -->
+        </ul>
+        <hr>
+        <h2>Сортировка/Фильтр (Rutracker)</h2>
+        <div id="sort-filter-options">
+            <h3>Сортировка</h3>
+            <select id="sort-select">
+                <option value="title_asc">По названию (А-Я)</option>
+                <option value="title_desc">По названию (Я-А)</option>
+                <option value="year_desc">По году (новые сверху)</option>
+                <option value="year_asc">По году (старые сверху)</option>
+            </select>
+
+            <h3>Фильтры</h3>
+            <div class="filter-group">
+                <label>Год:</label>
+                <select id="year-filter">
+                    <option value="">Все годы</option>
+                    <!-- Будет заполнено динамически -->
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Жанр:</label>
+                <select id="genre-filter">
+                    <option value="">Все жанры</option>
+                    <!-- Будет заполнено динамически -->
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Озвучка:</label>
+                <select id="voice-filter">
+                    <option value="">Любая</option>
+                    <!-- Будет заполнено динамически -->
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Язык текста:</label>
+                <select id="text-filter">
+                    <option value="">Любой</option>
+                    <!-- Будет заполнено динамически -->
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Мультиплеер:</label>
+                <select id="multiplayer-filter">
+                    <option value="">Все</option>
+                    <option value="true">Только с мультиплеером</option>
+                    <option value="false">Только без мультиплеера</option>
+                </select>
+            </div>
+
+            <button id="apply-filters-btn">Применить</button>
+            <button id="reset-filters-btn">Сбросить</button>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <div id="main-content">
+        <header>
+            <button id="open-panel-btn" class="open-panel-btn">☰</button> <!-- Кнопка "бургер" -->
+            <h1>Просмотр Rutracker (Игры f=1605)</h1>
+            <p>Управление: Геймпад (D-Pad/Лев.Стик - навигация, A/X - выбрать, B/O - закрыть, LB/RB - страницы, Start/Select - Меню)</p>
+            <p id="gamepad-status">Геймпад не обнаружен.</p>
+        </header>
+
+        <!-- Кнопки выбора источника (здесь активен Rutracker) -->
+        <div id="source-selector">
+            <button class="source-button active" data-source="rutracker">Rutracker</button>
+            <button class="source-button" data-source="pornolab" onclick="window.location.href='/pornolab.html'">Pornolab</button>
+             <button class="source-button" data-source="rutracker_rss" onclick="window.location.href='/rss_viewer.html'">Rutracker RSS</button>
+        </div>
+
+        <div id="poster-grid">
+            <p>Загрузка данных...</p>
+        </div>
+
+        <div id="pagination-controls" class="pagination"></div>
+
+        <!-- Модальное окно -->
+        <div id="modal-overlay" class="hidden">
+            <div id="modal-content">
+                <button id="close-modal" title="Закрыть (Кнопка B/O на геймпаде)">×</button>
+                <img id="modal-poster" src="" alt="Постер">
+                <div class="modal-text-content"> <!-- Контейнер для скролла -->
+                    <h2 id="modal-title">Название</h2>
+                    <!-- Контейнер для YouTube -->
+                    <div id="modal-youtube-container" style="display: none;">
+                        <iframe id="youtube-player" width="560" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <p class="youtube-notice">Показан результат поиска YouTube</p>
+                    </div>
+                    <!-- DIV для HTML контента первого поста -->
+                    <div id="modal-full-description"></div>
+                    <!-- БЛОК С ДЕТАЛЯМИ -->
+                    <div id="modal-details">
+                        <p><b class="detail-label">Год:</b> <span id="modal-year">-</span></p>
+                        <p><b class="detail-label">Жанр:</b> <span id="modal-genre">-</span></p>
+                        <p><b class="detail-label">Озвучка:</b> <span id="modal-voice">-</span></p>
+                        <p><b class="detail-label">Язык текста:</b> <span id="modal-text">-</span></p>
+                        <p><b class="detail-label">Возраст:</b> <span id="modal-age">-</span></p>
+                        <p><b class="detail-label">Мультиплеер:</b> <span id="modal-multiplayer">-</span></p>
+                    </div>
+                    <hr style="border-color: #555; margin: 15px 0;">
+                    <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer">Перейти на трекер</a>
+                    <a id="modal-download-link" href="#" class="download-button" style="display: none;">Скачать .torrent</a>
+                </div>
+            </div>
+        </div>
+    </div> <!-- Конец main-content -->
+
+    <script src="nav_panel.js"></script> <!-- JS для панели -->
+    <script src="script.js"></script> <!-- Основной JS -->
+</body>
+</html>

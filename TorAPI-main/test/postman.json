@@ -1,0 +1,4630 @@
+{
+	"info": {
+		"_postman_id": "23547b25-084c-4b30-bc78-9e72372dc9b8",
+		"name": "TorAPI",
+		"description": "Unofficial API (backend) for RuTracker, Kinozal, RuTor and NoNameClub\n\nContact Support:  \nName: © Lifailon (Alex Kup)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37302476"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "Provider",
+					"item": [
+						{
+							"name": "Provider > List",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200)\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Response time is less than 3 seconds\", function () {\r",
+											"    if (pm.response.responseTime > 3000) {\r",
+											"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+											"    } else {\r",
+											"        pm.expect(pm.response.responseTime).to.be.below(3000, \"Response time is less than 3 seconds\")\r",
+											"    }\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Checking CORS Headers is present: Access-Control-Allow-Origin\", function () {\r",
+											"    pm.response.to.have.header(\"Access-Control-Allow-Origin\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Checking CORS Headers is present: Access-Control-Allow-Methods\", function () {\r",
+											"    pm.response.to.have.header(\"Access-Control-Allow-Methods\")\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Checking CORS Headers is present: Access-Control-Allow-Headers\", function () {\r",
+											"    pm.response.to.have.header(\"Access-Control-Allow-Headers\")\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/provider/list",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"provider",
+										"list"
+									]
+								},
+								"description": "Get a list of providers"
+							},
+							"response": [
+								{
+									"name": "Successful response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://torapi.vercel.app/api/provider/list",
+											"protocol": "https",
+											"host": [
+												"torapi",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"provider",
+												"list"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"Provider\": \"string\",\n    \"Urls\": [\n      \"string\"\n    ]\n  }\n]"
+								}
+							]
+						},
+						{
+							"name": "Provider > Check",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200)\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Response time is less than 5 seconds\", function () {\r",
+											"    if (pm.response.responseTime > 5000) {\r",
+											"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+											"    } else {\r",
+											"        pm.expect(pm.response.responseTime).to.be.below(5000, \"Response time is less than 5 seconds\")\r",
+											"    }\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validating all properties are true\", function () {\r",
+											"    const responseData = pm.response.json()[0]\r",
+											"    pm.expect(responseData).to.be.an('object')\r",
+											"    Object.values(responseData).forEach(value => {\r",
+											"        pm.expect(value).to.be.true\r",
+											"    })\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/provider/check",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"provider",
+										"check"
+									]
+								},
+								"description": "Quickly check availability for all providers by searching by name"
+							},
+							"response": [
+								{
+									"name": "Successful response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://torapi.vercel.app/api/provider/check",
+											"protocol": "https",
+											"host": [
+												"torapi",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"provider",
+												"check"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"RSS\": {\n      \"RuTracker\": true,\n      \"Kinozal\": true,\n      \"RuTor\": true,\n      \"NoNameClub\": true\n    },\n    \"Title\": {\n      \"Status\": {\n        \"RuTracker\": true,\n        \"Kinozal\": true,\n        \"RuTor\": true,\n        \"NoNameClub\": true\n      },\n      \"Id\": {\n        \"RuTracker\": 0,\n        \"Kinozal\": 0,\n        \"RuTor\": 0,\n        \"NoNameClub\": 0\n      },\n      \"RunTime\": {\n        \"RuTracker\": 0,\n        \"Kinozal\": 0,\n        \"RuTor\": 0,\n        \"NoNameClub\": 0\n      }\n    },\n    \"Id\": {\n      \"Status\": {\n        \"RuTracker\": true,\n        \"Kinozal\": true,\n        \"RuTor\": true,\n        \"NoNameClub\": true\n      },\n      \"Files\": {\n        \"RuTracker\": true,\n        \"Kinozal\": true,\n        \"RuTor\": true,\n        \"NoNameClub\": true\n      },\n      \"RunTime\": {\n        \"RuTracker\": 0,\n        \"Kinozal\": 0,\n        \"RuTor\": 0,\n        \"NoNameClub\": 0\n      }\n    }\n  }\n]"
+								}
+							]
+						},
+						{
+							"name": "Provider > Test",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200)\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Response time is less than 10 seconds\", function () {\r",
+											"    if (pm.response.responseTime > 10000) {\r",
+											"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+											"    } else {\r",
+											"        pm.expect(pm.response.responseTime).to.be.below(10000, \"Response time is less than 10 seconds\")\r",
+											"    }\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validating all properties. RSS are true\", function () {\r",
+											"    const responseJSON = pm.response.json()\r",
+											"    pm.expect(responseJSON[0].RSS.RuTracker).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].RSS.Kinozal).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].RSS.RuTor).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].RSS.NoNameClub).to.eql(true)\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validating all properties. Search Title are true\", function () {\r",
+											"    const responseJSON = pm.response.json()\r",
+											"    pm.expect(responseJSON[0].Title.Status.RuTracker).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].Title.Status.Kinozal).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].Title.Status.RuTor).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].Title.Status.NoNameClub).to.eql(true)\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validating all properties. Search ID are true\", function () {\r",
+											"    const responseJSON = pm.response.json()\r",
+											"    pm.expect(responseJSON[0].Id.Status.RuTracker).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].Id.Status.Kinozal).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].Id.Status.RuTor).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].Id.Status.NoNameClub).to.eql(true)\r",
+											"})\r",
+											"\r",
+											"pm.test(\"Validating all properties. Files for Search ID are true\", function () {\r",
+											"    const responseJSON = pm.response.json()\r",
+											"    pm.expect(responseJSON[0].Id.Files.RuTracker).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].Id.Files.Kinozal).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].Id.Files.RuTor).to.eql(true)\r",
+											"    pm.expect(responseJSON[0].Id.Files.NoNameClub).to.eql(true)\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/provider/test?query={{query}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"provider",
+										"test"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "{{query}}",
+											"description": "(Required) Query parameter"
+										}
+									]
+								},
+								"description": "Testing all endpoints"
+							},
+							"response": [
+								{
+									"name": "Successful response",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://torapi.vercel.app/api/provider/test?query=<string>",
+											"protocol": "https",
+											"host": [
+												"torapi",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"provider",
+												"test"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "<string>",
+													"description": "(Required) Query parameter"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"RSS\": {\n      \"RuTracker\": \"<boolean>\",\n      \"Kinozal\": \"<boolean>\",\n      \"RuTor\": \"<boolean>\",\n      \"NoNameClub\": \"<boolean>\"\n    },\n    \"Title\": {\n      \"Status\": {\n        \"RuTracker\": \"<boolean>\",\n        \"Kinozal\": \"<boolean>\",\n        \"RuTor\": \"<boolean>\",\n        \"NoNameClub\": \"<boolean>\"\n      },\n      \"Id\": {\n        \"RuTracker\": \"<integer>\",\n        \"Kinozal\": \"<integer>\",\n        \"RuTor\": \"<integer>\",\n        \"NoNameClub\": \"<integer>\"\n      },\n      \"RunTime\": {\n        \"RuTracker\": \"<number>\",\n        \"Kinozal\": \"<number>\",\n        \"RuTor\": \"<number>\",\n        \"NoNameClub\": \"<number>\"\n      }\n    },\n    \"Id\": {\n      \"Status\": {\n        \"RuTracker\": \"<boolean>\",\n        \"Kinozal\": \"<boolean>\",\n        \"RuTor\": \"<boolean>\",\n        \"NoNameClub\": \"<boolean>\"\n      },\n      \"Files\": {\n        \"RuTracker\": \"<boolean>\",\n        \"Kinozal\": \"<boolean>\",\n        \"RuTor\": \"<boolean>\",\n        \"NoNameClub\": \"<boolean>\"\n      },\n      \"RunTime\": {\n        \"RuTracker\": \"<number>\",\n        \"Kinozal\": \"<number>\",\n        \"RuTor\": \"<number>\",\n        \"NoNameClub\": \"<number>\"\n      }\n    }\n  }\n]"
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"item": [
+						{
+							"name": "Category List",
+							"item": [
+								{
+									"name": "Get > Category > RuTracker",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 1 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 1000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time is less than 1 seconds\")\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/category/rutracker",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"category",
+												"rutracker"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{localUrl}}/api/category/rutracker",
+													"host": [
+														"{{localUrl}}"
+													],
+													"path": [
+														"api",
+														"category",
+														"rutracker"
+													]
+												}
+											},
+											"_postman_previewlanguage": null,
+											"header": null,
+											"cookie": [],
+											"body": "[\r\n  {\r\n    \"num\": \"string\"\r\n  }\r\n]"
+										}
+									]
+								},
+								{
+									"name": "Get > Category > Kinozal",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 1 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 1000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time is less than 1 seconds\")\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/category/kinozal",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"category",
+												"kinozal"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{localUrl}}/api/category/rutracker",
+													"host": [
+														"{{localUrl}}"
+													],
+													"path": [
+														"api",
+														"category",
+														"rutracker"
+													]
+												}
+											},
+											"_postman_previewlanguage": null,
+											"header": null,
+											"cookie": [],
+											"body": "[\r\n  {\r\n    \"num\": \"string\"\r\n  }\r\n]"
+										}
+									]
+								},
+								{
+									"name": "Get > Category > RuTor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 1 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 1000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time is less than 1 seconds\")\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/category/rutor",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"category",
+												"rutor"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{localUrl}}/api/category/rutracker",
+													"host": [
+														"{{localUrl}}"
+													],
+													"path": [
+														"api",
+														"category",
+														"rutracker"
+													]
+												}
+											},
+											"_postman_previewlanguage": null,
+											"header": null,
+											"cookie": [],
+											"body": "[\r\n  {\r\n    \"num\": \"string\"\r\n  }\r\n]"
+										}
+									]
+								},
+								{
+									"name": "Get > Category > NoNameClub",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 1 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 1000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(1000, \"Response time is less than 1 seconds\")\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/category/nonameclub",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"category",
+												"nonameclub"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{localUrl}}/api/category/rutracker",
+													"host": [
+														"{{localUrl}}"
+													],
+													"path": [
+														"api",
+														"category",
+														"rutracker"
+													]
+												}
+											},
+											"_postman_previewlanguage": null,
+											"header": null,
+											"cookie": [],
+											"body": "[\r\n  {\r\n    \"num\": \"string\"\r\n  }\r\n]"
+										}
+									]
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "RSS (XML)",
+							"item": [
+								{
+									"name": "Get > RSS > RuTracker > XML",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"viewtopic.php\")\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/rss/rutracker",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"rss",
+												"rutracker"
+											]
+										},
+										"description": "Get native RSS news feed from RuTracker provider in XML or JSON format. To get the answer in the required format, use the parameter in the answer block."
+									},
+									"response": []
+								},
+								{
+									"name": "Get > RSS > Kinozal > XML",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"details.php\")\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/rss/kinozal",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"rss",
+												"kinozal"
+											]
+										},
+										"description": "Get native RSS news feed from Kinozal provider in XML or JSON format. To get the answer in the required format, use the parameter in the answer block."
+									},
+									"response": []
+								},
+								{
+									"name": "Get > RSS > RuTor > XML",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"d.rutor.info/download\")\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/rss/rutor",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"rss",
+												"rutor"
+											]
+										},
+										"description": "Get custom RSS news feed from RuTor provider in XML or JSON format. To get the answer in the required format, use the parameter in the answer block."
+									},
+									"response": []
+								},
+								{
+									"name": "Get > RSS > NoNameClub > XML",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Body matches string\", function () {\r",
+													"    pm.expect(pm.response.text()).to.include(\"viewtopic.php\")\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/xml"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/rss/nonameclub",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"rss",
+												"nonameclub"
+											]
+										},
+										"description": "Get native RSS news feed from NoNameClub provider in XML or JSON format. To get the answer in the required format, use the parameter in the answer block."
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "RSS (JSON) and Filter by Category",
+							"item": [
+								{
+									"name": "Get > RSS > RuTracker > JSON + Category",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"const categoryRuTracker = pm.collectionVariables.get(\"categoryRuTracker\")\r",
+													"\r",
+													"pm.test(`Category include ${categoryRuTracker}`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.category).to.include(categoryRuTracker)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"const categoryNameRuTracker = pm.collectionVariables.get(\"categoryNameRuTracker\")\r",
+													"console.log(`Category Name: ${categoryNameRuTracker}`)\r",
+													"\r",
+													"pm.test(`Category Lable = ${categoryNameRuTracker}`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.categoryLable).to.eq(categoryNameRuTracker)\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const categoryRuTracker = pm.variables.get(\"categoryRuTracker\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/get/category/rutracker`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const categoryNameRuTracker = response.json()[0][categoryRuTracker]\r",
+													"    if (categoryNameRuTracker) {\r",
+													"        pm.collectionVariables.set('categoryNameRuTracker', categoryNameRuTracker)\r",
+													"    } else {\r",
+													"        console.log('Key not found')\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/rss/rutracker?category={{categoryRuTracker}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"rss",
+												"rutracker"
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "{{categoryRuTracker}}"
+												}
+											]
+										},
+										"description": "Get native RSS news feed from RuTracker provider in XML or JSON format. To get the answer in the required format, use the parameter in the answer block."
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/xml"
+													}
+												],
+												"url": {
+													"raw": "https://torapi.vercel.app/api/get/rss/rutracker",
+													"protocol": "https",
+													"host": [
+														"torapi",
+														"vercel",
+														"app"
+													],
+													"path": [
+														"api",
+														"get",
+														"rss",
+														"rutracker"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"id\": \"string\",\n    \"link\": \"string\",\n    \"updated\": \"string\",\n    \"title\": \"string\",\n    \"author\": \"string\",\n    \"category\": \"string\",\n    \"categoryLable\": \"string\"\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "Get > RSS > Kinozal > JSON + Category + Filters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"const categoryNameKinozal = pm.collectionVariables.get(\"categoryNameKinozal\")\r",
+													"console.log(`Category Name: ${categoryNameKinozal}`)\r",
+													"\r",
+													"pm.test(`Category Lable = ${categoryNameKinozal}`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.category).to.eq(categoryNameKinozal)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(`Check format FullHD (1080)`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData[0].title).to.include('1080')\r",
+													"})\r",
+													"\r",
+													"pm.test(`Check year 2024`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData[0].title).to.include('2024')\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const categoryKinozal = pm.variables.get(\"categoryKinozal\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/get/category/kinozal`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const categoryNameKinozal = response.json()[0][categoryKinozal]\r",
+													"    if (categoryNameKinozal) {\r",
+													"        pm.collectionVariables.set('categoryNameKinozal', categoryNameKinozal)\r",
+													"    } else {\r",
+													"        console.log('Key not found')\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/rss/kinozal?category={{categoryKinozal}}&year=2024&format=1080",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"rss",
+												"kinozal"
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "{{categoryKinozal}}"
+												},
+												{
+													"key": "year",
+													"value": "2024"
+												},
+												{
+													"key": "format",
+													"value": "1080"
+												}
+											]
+										},
+										"description": "Get native RSS news feed from RuTracker provider in XML or JSON format. To get the answer in the required format, use the parameter in the answer block."
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/xml"
+													}
+												],
+												"url": {
+													"raw": "https://torapi.vercel.app/api/get/rss/rutracker",
+													"protocol": "https",
+													"host": [
+														"torapi",
+														"vercel",
+														"app"
+													],
+													"path": [
+														"api",
+														"get",
+														"rss",
+														"rutracker"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"date\": \"string\",\n    \"title\": \"string\",\n    \"category\": \"string\",\n    \"link\": \"string\",\n    \"downloadLink\": \"string\",\n    \"size\": \"string\",\n    \"comments\": \"string\",\n    \"seeds\": \"string\",\n    \"peers\": \"string\"\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "Get > RSS > RuTor > JSON + Category",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"const categoryRuTor = pm.collectionVariables.get(\"categoryRuTor\")\r",
+													"\r",
+													"pm.test(`Category include ${categoryRuTor}`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.category).to.include(categoryRuTor)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"const categoryNameRuTor = pm.collectionVariables.get(\"categoryNameRuTor\")\r",
+													"console.log(`Category Name: ${categoryNameRuTor}`)\r",
+													"\r",
+													"pm.test(`Category Lable = ${categoryNameRuTor}`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.categoryLable).to.eq(categoryNameRuTor)\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const categoryRuTor = pm.variables.get(\"categoryRuTor\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/get/category/rutracker`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const categoryNameRuTor = response.json()[0][categoryRuTor]\r",
+													"    if (categoryNameRuTor) {\r",
+													"        pm.collectionVariables.set('categoryNameRuTor', categoryNameRuTor)\r",
+													"    } else {\r",
+													"        console.log('Key not found')\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/rss/rutracker?category={{categoryRuTor}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"rss",
+												"rutracker"
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "{{categoryRuTor}}"
+												}
+											]
+										},
+										"description": "Get native RSS news feed from RuTracker provider in XML or JSON format. To get the answer in the required format, use the parameter in the answer block."
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/xml"
+													}
+												],
+												"url": {
+													"raw": "https://torapi.vercel.app/api/get/rss/rutracker",
+													"protocol": "https",
+													"host": [
+														"torapi",
+														"vercel",
+														"app"
+													],
+													"path": [
+														"api",
+														"get",
+														"rss",
+														"rutracker"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"date\": \"string\",\n    \"title\": \"string\",\n    \"link\": \"string\",\n    \"downloadLink\": \"string\",\n    \"magnet\": \"string\",\n    \"size\": \"string\",\n    \"comments\": 0,\n    \"seeds\": 0,\n    \"peers\": 0\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "Get > RSS > NoNameClub > JSON + Category",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"const categoryNameNoNameClub = pm.collectionVariables.get(\"categoryNameNoNameClub\")\r",
+													"console.log(`Category Name: ${categoryNameNoNameClub}`)\r",
+													"\r",
+													"pm.test(`Title include: ${categoryNameNoNameClub}`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.title).to.include(categoryNameNoNameClub)\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const categoryNoNameClub = pm.variables.get(\"categoryNoNameClub\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/get/category/nonameclub`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const categoryNameNoNameClub = response.json()[0][categoryNoNameClub]\r",
+													"    if (categoryNameNoNameClub) {\r",
+													"        pm.collectionVariables.set('categoryNameNoNameClub', categoryNameNoNameClub)\r",
+													"    } else {\r",
+													"        console.log('Key not found')\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"accept": true
+										}
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/get/rss/nonameclub?category={{categoryNoNameClub}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"get",
+												"rss",
+												"nonameclub"
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "{{categoryNoNameClub}}"
+												}
+											]
+										},
+										"description": "Get native RSS news feed from RuTracker provider in XML or JSON format. To get the answer in the required format, use the parameter in the answer block."
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/xml"
+													}
+												],
+												"url": {
+													"raw": "https://torapi.vercel.app/api/get/rss/rutracker",
+													"protocol": "https",
+													"host": [
+														"torapi",
+														"vercel",
+														"app"
+													],
+													"path": [
+														"api",
+														"get",
+														"rss",
+														"rutracker"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"turbo\": \"string\",\n    \"title\": \"string\",\n    \"link\": \"string\",\n    \"pubDate\": \"string\",\n    \"description\": \"string\",\n    \"content\": \"string\",\n    \"creator\": \"string\",\n    \"commentRss\": \"string\",\n    \"comments\": \"string\"\n  }\n]"
+										}
+									]
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Search",
+					"item": [
+						{
+							"name": "Search by Title",
+							"item": [
+								{
+									"name": "Search > Title > RuTracker",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Name is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"ID is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Id).to.match(/^\\d.+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Url is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Url).to.match(/^https/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Torrent is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Torrent).to.match(/^https/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Size is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Size).to.match(/(KB|MB|GB)$/i)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Download Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Download_Count).to.match(/^\\d+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Checked is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Checked).to.not.be.null\r",
+													"        pm.expect(item.Checked).to.not.be.undefined\r",
+													"        pm.expect(item.Checked).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Category is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Category).to.not.be.null\r",
+													"        pm.expect(item.Category).to.not.be.undefined\r",
+													"        pm.expect(item.Category).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Seeds Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Seeds).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Peers Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Peers).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Date is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Date).to.match(/^\\d{2}\\.\\d{2}\\.\\d{4}$/)\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/rutracker?query={{query}}&category=0&page=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"rutracker"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{query}}",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "0",
+													"description": "Parameter to filter by category"
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "Page number or All"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker RuTracker"
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "http://127.0.0.1:8443/api/search/title/rutracker?query=<string>&page=0",
+													"protocol": "http",
+													"host": [
+														"127",
+														"0",
+														"0",
+														"1"
+													],
+													"port": "8443",
+													"path": [
+														"api",
+														"search",
+														"title",
+														"rutracker"
+													],
+													"query": [
+														{
+															"key": "query",
+															"value": "<string>",
+															"description": "(Required) Query parameter"
+														},
+														{
+															"key": "page",
+															"value": "0",
+															"description": "Page number"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"Name\": \"string\",\n    \"Id\": \"string\",\n    \"Url\": \"string\",\n    \"Torrent\": \"string\",\n    \"Size\": \"string\",\n    \"Download_Count\": \"string\",\n    \"Checked\": \"string\",\n    \"Category\": \"string\",\n    \"Seeds\": \"string\",\n    \"Peers\": \"string\",\n    \"Date\": \"string\"\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "Search > Title > Kinozal",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Name is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Title is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Title).to.not.be.null\r",
+													"        pm.expect(item.Title).to.not.be.undefined\r",
+													"        pm.expect(item.Title).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"ID is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Id).to.match(/^\\d.+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Original Name is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Original_Name).to.not.be.null\r",
+													"        pm.expect(item.Original_Name).to.not.be.undefined\r",
+													"        pm.expect(item.Original_Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Year is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Date).to.match(/^(\\d{4})||(\\d{4}-\\d{4})$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Language is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Language).to.not.be.null\r",
+													"        pm.expect(item.Language).to.not.be.undefined\r",
+													"        pm.expect(item.Language).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Url is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Url).to.match(/^https/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Torrent is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Torrent).to.match(/^https/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Size is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Size).to.match(/(KB|MB|GB)$/i)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Comments Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Comments).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Category is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Category).to.not.be.null\r",
+													"        pm.expect(item.Category).to.not.be.undefined\r",
+													"        pm.expect(item.Category).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Seeds Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Seeds).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Peers Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Peers).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Time is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Time).to.match(/^\\d{2}:\\d{2}$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Date is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Date).to.match(/^\\d{2}\\.\\d{2}\\.\\d{4}$/)\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/kinozal?query={{query}}&category=0&page=0&year=0&format=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"kinozal"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{query}}",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "0",
+													"description": "Parameter to filter by category"
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "Page number or All"
+												},
+												{
+													"key": "year",
+													"value": "0",
+													"description": "Release year for filtering"
+												},
+												{
+													"key": "format",
+													"value": "0",
+													"description": "Quality resolution format for filtering"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker Kinozal"
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "http://127.0.0.1:8443/api/search/title/kinozal?query=<string>&page=0&year=0",
+													"protocol": "http",
+													"host": [
+														"127",
+														"0",
+														"0",
+														"1"
+													],
+													"port": "8443",
+													"path": [
+														"api",
+														"search",
+														"title",
+														"kinozal"
+													],
+													"query": [
+														{
+															"key": "query",
+															"value": "<string>",
+															"description": "(Required) Query parameter"
+														},
+														{
+															"key": "page",
+															"value": "0",
+															"description": "Page number"
+														},
+														{
+															"key": "year",
+															"value": "0",
+															"description": "Year release"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"Name\": \"string\",\n    \"Title\": \"string\",\n    \"Id\": \"string\",\n    \"Original_Name\": \"string\",\n    \"Year\": \"string\",\n    \"Language\": \"string\",\n    \"Format\": \"string\",\n    \"Url\": \"string\",\n    \"Torrent\": \"string\",\n    \"Size\": \"string\",\n    \"Comments\": \"string\",\n    \"Category\": \"string\",\n    \"Seeds\": \"string\",\n    \"Peers\": \"string\",\n    \"Time\": \"string\",\n    \"Date\": \"string\"\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "Search > Title > RuTor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Name is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"ID is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Id).to.match(/^\\d.+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Url is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Url).to.match(/^https/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Torrent is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Torrent).to.match(/^https/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Hash is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Hash).to.not.be.null\r",
+													"        pm.expect(item.Hash).to.not.be.undefined\r",
+													"        pm.expect(item.Hash).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Size is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Size).to.match(/(KB|MB|GB)$/i)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Comments Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Comments).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Seeds Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Seeds).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Peers Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Peers).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Date is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Date).to.match(/^\\d{2}\\.\\d{2}\\.\\d{4}$/)\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/rutor?query={{query}}&category=0&page=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"rutor"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{query}}",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "0",
+													"description": "Parameter to filter by category"
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "Page number or All"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker RuTor"
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "http://127.0.0.1:8443/api/search/title/rutor?query=<string>&page=0",
+													"protocol": "http",
+													"host": [
+														"127",
+														"0",
+														"0",
+														"1"
+													],
+													"port": "8443",
+													"path": [
+														"api",
+														"search",
+														"title",
+														"rutor"
+													],
+													"query": [
+														{
+															"key": "query",
+															"value": "<string>",
+															"description": "(Required) Query parameter"
+														},
+														{
+															"key": "page",
+															"value": "0",
+															"description": "Page number"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"Name\": \"string\",\n    \"Id\": \"string\",\n    \"Url\": \"string\",\n    \"Torrent\": \"string\",\n    \"Hash\": \"string\",\n    \"Size\": \"string\",\n    \"Comments\": \"string\",\n    \"Seeds\": \"string\",\n    \"Peers\": \"string\",\n    \"Date\": \"string\"\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "Search > Title > NoNameClub",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Name is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"ID is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Id).to.match(/^\\d.+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Url is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Url).to.match(/^https/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Torrent is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Torrent).to.match(/^https/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Size is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Size).to.match(/(KB|MB|GB)$/i)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Comments Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Comments).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Category is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Category).to.not.be.null\r",
+													"        pm.expect(item.Category).to.not.be.undefined\r",
+													"        pm.expect(item.Category).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Seeds Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Seeds).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Peers Count is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Peers).to.match(/^[0-9]+$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Time is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Time).to.match(/^\\d{2}:\\d{2}$/)\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Date is in a valid format\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Date).to.match(/^\\d{2}\\.\\d{2}\\.\\d{4}$/)\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/nonameclub?query={{query}}&category=0&page=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"nonameclub"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{query}}",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "0",
+													"description": "Parameter to filter by category"
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "Page number or All"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker NoNameClub"
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "http://127.0.0.1:8443/api/search/title/nonameclub?query=<string>&page=0",
+													"protocol": "http",
+													"host": [
+														"127",
+														"0",
+														"0",
+														"1"
+													],
+													"port": "8443",
+													"path": [
+														"api",
+														"search",
+														"title",
+														"nonameclub"
+													],
+													"query": [
+														{
+															"key": "query",
+															"value": "<string>",
+															"description": "(Required) Query parameter"
+														},
+														{
+															"key": "page",
+															"value": "0",
+															"description": "Page number"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"Name\": \"string\",\n    \"Id\": \"string\",\n    \"Url\": \"string\",\n    \"Torrent\": \"string\",\n    \"Size\": \"string\",\n    \"Comments\": \"string\",\n    \"Category\": \"string\",\n    \"Seeds\": \"string\",\n    \"Peers\": \"string\",\n    \"Time\": \"string\",\n    \"Date\": \"string\"\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "Search > Title > ALL",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 3 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 3000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(3000, \"Response time is less than 3 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Test data in RuTracker\", function () {\r",
+													"    let jsonData = pm.response.json()\r",
+													"    pm.expect(jsonData.RuTracker.Name).to.not.be.null\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Test data in Kinozal\", function () {\r",
+													"    let jsonData = pm.response.json()\r",
+													"    pm.expect(jsonData.Kinozal.Name).to.not.be.null\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Test data in RuTor\", function () {\r",
+													"    let jsonData = pm.response.json()\r",
+													"    pm.expect(jsonData.RuTor.Name).to.not.be.null\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Test data in NoNameClub\", function () {\r",
+													"    let jsonData = pm.response.json()\r",
+													"    pm.expect(jsonData.NoNameClub.Name).to.not.be.null\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response has the required property for RuTracker\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('Object')\r",
+													"    pm.expect(responseData.RuTracker).to.be.an('array')\r",
+													"    responseData.RuTracker.forEach((item) => {\r",
+													"        pm.expect(item).to.have.property('Name').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Id').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Url').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Torrent').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Size').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Download_Count').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Checked').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Category').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Seeds').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Peers').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Date').that.is.not.empty\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response has the required property for Kinozal\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('Object')\r",
+													"    pm.expect(responseData.Kinozal).to.be.an('array')\r",
+													"    responseData.Kinozal.forEach(function (item) {\r",
+													"        pm.expect(item).to.have.property('Name').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Title').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Id').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Original_Name').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Year').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Language').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Format').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Url').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Torrent').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Size').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Comments').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Category').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Seeds').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Peers').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Time').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Date').that.is.not.empty\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response has the required property for RuTor\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('Object')\r",
+													"    pm.expect(responseData.RuTor).to.be.an('array')\r",
+													"    responseData.RuTor.forEach((item) => {\r",
+													"        pm.expect(item).to.have.property('Name').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Id').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Url').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Torrent').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Hash').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Size').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Comments').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Seeds').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Peers').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Date').that.is.not.empty\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response has the required property for NoNameClub\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('Object')\r",
+													"    pm.expect(responseData.NoNameClub).to.be.an('array').that.is.not.empty\r",
+													"    responseData.NoNameClub.forEach((item) => {\r",
+													"        pm.expect(item).to.have.property('Name').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Id').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Url').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Torrent').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Size').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Comments').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Category').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Seeds').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Peers').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Time').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Date').that.is.not.empty\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/all?query={{query}}&page=0&year=0&format=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"all"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{query}}",
+													"description": "Query parameter"
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "Page number or All"
+												},
+												{
+													"key": "year",
+													"value": "0",
+													"description": "Release year for filtering"
+												},
+												{
+													"key": "format",
+													"value": "0",
+													"description": "Quality resolution format for filtering"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in all torrent trackers"
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "http://127.0.0.1:8443/api/search/title/all?query=<string>&page=0&year=0",
+													"protocol": "http",
+													"host": [
+														"127",
+														"0",
+														"0",
+														"1"
+													],
+													"port": "8443",
+													"path": [
+														"api",
+														"search",
+														"title",
+														"all"
+													],
+													"query": [
+														{
+															"key": "query",
+															"value": "<string>",
+															"description": "(Required) Query parameter"
+														},
+														{
+															"key": "page",
+															"value": "0",
+															"description": "Page number"
+														},
+														{
+															"key": "year",
+															"value": "0",
+															"description": "Year release"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"RuTracker\": [\n    {\n      \"Name\": \"string\",\n      \"Id\": \"string\",\n      \"Url\": \"string\",\n      \"Torrent\": \"string\",\n      \"Size\": \"string\",\n      \"Download_Count\": \"string\",\n      \"Checked\": \"string\",\n      \"Category\": \"string\",\n      \"Seeds\": \"string\",\n      \"Peers\": \"string\",\n      \"Date\": \"string\"\n    }\n  ],\n  \"Kinozal\": [\n    {\n      \"Name\": \"string\",\n      \"Title\": \"string\",\n      \"Id\": \"string\",\n      \"Original_Name\": \"string\",\n      \"Year\": \"string\",\n      \"Language\": \"string\",\n      \"Format\": \"string\",\n      \"Url\": \"string\",\n      \"Torrent\": \"string\",\n      \"Size\": \"string\",\n      \"Comments\": \"string\",\n      \"Category\": \"string\",\n      \"Seeds\": \"string\",\n      \"Peers\": \"string\",\n      \"Date\": \"string\"\n    }\n  ],\n  \"RuTor\": [\n    {\n      \"Name\": \"string\",\n      \"Id\": \"string\",\n      \"Url\": \"string\",\n      \"Torrent\": \"string\",\n      \"Hash\": \"string\",\n      \"Size\": \"string\",\n      \"Comments\": \"string\",\n      \"Seeds\": \"string\",\n      \"Peers\": \"string\",\n      \"Date\": \"string\"\n    }\n  ],\n  \"NoNameClub\": [\n    {\n      \"Name\": \"string\",\n      \"Id\": \"string\",\n      \"Url\": \"string\",\n      \"Torrent\": \"string\",\n      \"Size\": \"string\",\n      \"Comments\": \"string\",\n      \"Category\": \"string\",\n      \"Seeds\": \"string\",\n      \"Peers\": \"string\",\n      \"Date\": \"string\"\n    }\n  ]\n}"
+										}
+									]
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Search All Page",
+							"item": [
+								{
+									"name": "Search > Title > RuTracker > All Page",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 10 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 10000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(10000, \"Response time is less than 10 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Name is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Number of results > or = 450\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    const numberResults = responseData.length\r",
+													"    console.log(`Number of results: ${numberResults}`)\r",
+													"    pm.expect(numberResults).to.be.at.least(450)\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/rutracker?query={{queryAllPage}}&category=0&page=all",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"rutracker"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{queryAllPage}}",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "0"
+												},
+												{
+													"key": "page",
+													"value": "all",
+													"description": "All pages"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker RuTracker"
+									},
+									"response": []
+								},
+								{
+									"name": "Search > Title > Kinozal > All Page",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 10 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 10000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(10000, \"Response time is less than 10 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Name is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Number of results > or = 51\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    const numberResults = responseData.length\r",
+													"    console.log(`Number of results: ${numberResults}`)\r",
+													"    pm.expect(numberResults).to.be.at.least(51)\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/kinozal?query={{queryAllPage}}&category=0&page=all&year=0&format=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"kinozal"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{queryAllPage}}",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "0"
+												},
+												{
+													"key": "page",
+													"value": "all",
+													"description": "All pages"
+												},
+												{
+													"key": "year",
+													"value": "0",
+													"description": "Release year for filtering"
+												},
+												{
+													"key": "format",
+													"value": "0",
+													"description": "Quality resolution format for filtering"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker Kinozal"
+									},
+									"response": []
+								},
+								{
+									"name": "Search > Title > RuTor > All Page",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 10 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 10000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(10000, \"Response time is less than 10 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Name is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Number of results > or = 101\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    const numberResults = responseData.length\r",
+													"    console.log(`Number of results: ${numberResults}`)\r",
+													"    pm.expect(numberResults).to.be.at.least(101)\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/rutor?query={{queryAllPage}}&category=0&page=all",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"rutor"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{queryAllPage}}",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "0"
+												},
+												{
+													"key": "page",
+													"value": "all",
+													"description": "All pages"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker RuTor"
+									},
+									"response": []
+								},
+								{
+									"name": "Search > Title > NoNameClub > All Page",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 5 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 5000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(5000, \"Response time is less than 5 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Name is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Number of results > or = 200\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    const numberResults = responseData.length\r",
+													"    console.log(`Number of results: ${numberResults}`)\r",
+													"    pm.expect(numberResults).to.be.at.least(200)\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/nonameclub?query={{queryAllPage}}&category=0&page=all",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"nonameclub"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{queryAllPage}}",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "0"
+												},
+												{
+													"key": "page",
+													"value": "all",
+													"description": "All pages"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker NoNameClub"
+									},
+									"response": []
+								},
+								{
+									"name": "Search > Title > ALL > All Page",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 20 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 20000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(20000, \"Response time is less than 20 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Data is not null in RuTracker\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.RuTracker.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Data is not null in Kinozal\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.Kinozal.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Data is not null in RuTor\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.RuTor.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Data is not null in NoNameClub\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.NoNameClub.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/all?query={{queryAllPage}}&year=0&format=0&page=all",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"all"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{queryAllPage}}",
+													"description": "(Required) Query parameter"
+												},
+												{
+													"key": "year",
+													"value": "0",
+													"description": "Release year for filtering"
+												},
+												{
+													"key": "format",
+													"value": "0",
+													"description": "Quality resolution format for filtering"
+												},
+												{
+													"key": "page",
+													"value": "all",
+													"description": "Page number"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker NoNameClub"
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Filter by Category and not Title",
+							"item": [
+								{
+									"name": "Search > Title > RuTracker + Category",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"const categoryNameRuTracker = pm.collectionVariables.get(\"categoryNameRuTracker\")\r",
+													"console.log(`Category Name: ${categoryNameRuTracker}`)\r",
+													"\r",
+													"pm.test(`Category = ${categoryNameRuTracker}`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Category).to.eq(categoryNameRuTracker)\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const categoryRuTracker = pm.variables.get(\"categoryRuTracker\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/get/category/rutracker`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const categoryNameRuTracker = response.json()[0][categoryRuTracker]\r",
+													"    if (categoryNameRuTracker) {\r",
+													"        pm.collectionVariables.set('categoryNameRuTracker', categoryNameRuTracker)\r",
+													"    } else {\r",
+													"        console.log('Key not found')\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/rutracker?query=&category={{categoryRuTracker}}&page=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"rutracker"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "{{categoryRuTracker}}",
+													"description": "Parameter to filter by category"
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "Page number or All"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker RuTracker"
+									},
+									"response": []
+								},
+								{
+									"name": "Search > Title > Kinozal + Category",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"const categoryNameKinozal = pm.collectionVariables.get(\"categoryNameKinozal\")\r",
+													"console.log(`Category Name: ${categoryNameKinozal}`)\r",
+													"\r",
+													"pm.test(`Category = ${categoryNameKinozal}`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Category).to.eq(categoryNameKinozal)\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const categoryKinozal = pm.variables.get(\"categoryKinozal\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/get/category/kinozal`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const categoryNameKinozal = response.json()[0][categoryKinozal]\r",
+													"    if (categoryNameKinozal) {\r",
+													"        pm.collectionVariables.set('categoryNameKinozal', categoryNameKinozal)\r",
+													"    } else {\r",
+													"        console.log('Key not found')\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/kinozal?query=&category={{categoryKinozal}}&page=0&year=0&format=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"kinozal"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "{{categoryKinozal}}",
+													"description": "Parameter to filter by category"
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "Page number or All"
+												},
+												{
+													"key": "year",
+													"value": "0"
+												},
+												{
+													"key": "format",
+													"value": "0"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker RuTracker"
+									},
+									"response": []
+								},
+								{
+									"name": "Search > Title > Kinozal + Filter",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"// pm.test(`Check format FullHD (1080)`, function () {\r",
+													"//     const responseData = pm.response.json()\r",
+													"//     pm.expect(responseData[0].Format).to.include(1080)\r",
+													"// })\r",
+													"\r",
+													"// pm.test(`Check year 2024`, function () {\r",
+													"//     const responseData = pm.response.json()\r",
+													"//     pm.expect(responseData[0].Year).to.equal('2024')\r",
+													"// })\r",
+													"\r",
+													"pm.test(`Check format FullHD (1080)`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData[0].Name).to.include('1080')\r",
+													"})\r",
+													"\r",
+													"pm.test(`Check year 2024`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData[0].Name).to.include('2024')\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/kinozal?query=&category=0&page=0&year=2024&format=1080",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"kinozal"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "0",
+													"description": "Parameter to filter by category"
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "Page number or All"
+												},
+												{
+													"key": "year",
+													"value": "2024",
+													"description": "Release year for filtering"
+												},
+												{
+													"key": "format",
+													"value": "1080",
+													"description": "Quality resolution format for filtering"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker Kinozal"
+									},
+									"response": []
+								},
+								{
+									"name": "Search > Title > RuTor + Category",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Name is in not null\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Name).to.not.be.null\r",
+													"        pm.expect(item.Name).to.not.be.undefined\r",
+													"        pm.expect(item.Name).to.not.equal('')\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/rutor?query=&category={{categoryRuTor}}&page=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"rutor"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": ""
+												},
+												{
+													"key": "category",
+													"value": "{{categoryRuTor}}",
+													"description": "Parameter to filter by category"
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "Page number or All"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker RuTracker"
+									},
+									"response": []
+								},
+								{
+									"name": "Search > Title > NoNameClub + Category",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 2 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 2000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(2000, \"Response time is less than 2 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"const categoryNameNoNameClub = pm.collectionVariables.get(\"categoryNameNoNameClub\")\r",
+													"console.log(`Category Name: ${categoryNameNoNameClub}`)\r",
+													"\r",
+													"pm.test(`Category = ${categoryNameNoNameClub}`, function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.Category).to.eq(categoryNameNoNameClub)\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const categoryNoNameClub = pm.variables.get(\"categoryNoNameClub\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/get/category/nonameclub`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const categoryNameNoNameClub = response.json()[0][categoryNoNameClub]\r",
+													"    if (categoryNameNoNameClub) {\r",
+													"        pm.collectionVariables.set('categoryNameNoNameClub', categoryNameNoNameClub)\r",
+													"    } else {\r",
+													"        console.log('Key not found')\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/title/nonameclub?query=&category={{categoryNoNameClub}}&page=0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"title",
+												"nonameclub"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "",
+													"description": "Query parameter"
+												},
+												{
+													"key": "category",
+													"value": "{{categoryNoNameClub}}",
+													"description": "Parameter to filter by category"
+												},
+												{
+													"key": "page",
+													"value": "0",
+													"description": "Page number or All"
+												}
+											]
+										},
+										"description": "Search for a movie or TV series in torrent tracker RuTracker"
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Search by ID",
+							"item": [
+								{
+									"name": "Search > ID > RuTracker",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const query = pm.variables.get(\"query\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/search/title/rutracker?query=${query}&page=0`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const responseData = response.json()\r",
+													"    if (Array.isArray(responseData) && responseData.length > 0) {\r",
+													"        console.log(responseData[0].Id)\r",
+													"        const id = responseData[0].Id\r",
+													"        pm.collectionVariables.set(\"RuTrackerTestId\", id)\r",
+													"    } else {\r",
+													"        console.error(\"Unexpected response structure or empty array.\")\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 3 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 3000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(3000, \"Response time is less than 3 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response has the required property\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('array')\r",
+													"    responseData.forEach((item) => {\r",
+													"        pm.expect(item).to.have.property('Name').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Url').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Hash').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Magnet').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Torrent').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('IMDb_link').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Kinopoisk_link').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Kinopoisk_id').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Year').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Release').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Type').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Duration').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Audio').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Directer').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Description').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Quality').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Video').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Poster').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Files').that.is.an('array').that.is.not.empty\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Test Files property\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('array')\r",
+													"    responseData.forEach((item) => {\r",
+													"        item.Files.forEach(file => {\r",
+													"            pm.expect(file).to.have.property('Name').that.is.not.empty\r",
+													"            pm.expect(file).to.have.property('Size').that.is.not.empty\r",
+													"        })\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/id/rutracker?query={{RuTrackerTestId}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"id",
+												"rutracker"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{RuTrackerTestId}}",
+													"description": "Only id"
+												}
+											]
+										},
+										"description": "Search by id in the torrent tracker RuTracker"
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/search/id/rutracker?query=<integer>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"search",
+														"id",
+														"rutracker"
+													],
+													"query": [
+														{
+															"key": "query",
+															"value": "<integer>",
+															"description": "(Required) ID parameter"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"Name\": \"string\",\n    \"Url\": \"string\",\n    \"Hash\": \"string\",\n    \"Magnet\": \"string\",\n    \"Torrent\": \"string\",\n    \"IMDb_link\": \"string\",\n    \"Kinopoisk_link\": \"string\",\n    \"IMDb_id\": \"string\",\n    \"Kinopoisk_id\": \"string\",\n    \"Year\": \"string\",\n    \"Release\": \"string\",\n    \"Type\": \"string\",\n    \"Duration\": \"string\",\n    \"Audio\": \"string\",\n    \"Directer\": \"string\",\n    \"Actors\": \"string\",\n    \"Description\": \"string\",\n    \"Quality\": \"string\",\n    \"Video\": \"string\",\n    \"Poster\": \"string\",\n    \"Files\": [\n      {\n        \"Name\": \"string\",\n        \"Size\": \"string\"\n      }\n    ]\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "Search > ID > Kinozal",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const query = pm.variables.get(\"query\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/search/title/kinozal?query=${query}&page=0`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const responseData = response.json()\r",
+													"    if (Array.isArray(responseData) && responseData.length > 0) {\r",
+													"        console.log(responseData[0].Id)\r",
+													"        const id = responseData[0].Id\r",
+													"        pm.collectionVariables.set(\"KinozalTestId\", id)\r",
+													"    } else {\r",
+													"        console.error(\"Unexpected response structure or empty array.\")\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 3 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 3000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(3000, \"Response time is less than 3 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response has the required property\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('array')\r",
+													"    responseData.forEach((item) => {\r",
+													"        pm.expect(item).to.have.property('Name').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Url').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Hash').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Magnet').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Torrent').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Files').that.is.an('array').that.is.not.empty\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Test Files property\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('array')\r",
+													"    responseData.forEach((item) => {\r",
+													"        item.Files.forEach((file) => {\r",
+													"            pm.expect(file).to.have.property('Name').that.is.not.empty\r",
+													"            pm.expect(file).to.have.property('Size').that.is.not.empty\r",
+													"        })\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/id/kinozal?query={{KinozalTestId}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"id",
+												"kinozal"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{KinozalTestId}}",
+													"description": "Only id"
+												}
+											]
+										},
+										"description": "Search by id in the torrent tracker Kinozal"
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/search/id/kinozal?query=<integer>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"search",
+														"id",
+														"kinozal"
+													],
+													"query": [
+														{
+															"key": "query",
+															"value": "<integer>",
+															"description": "(Required) ID parameter"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"Name\": \"string\",\n    \"Original_Name\": \"string\",\n    \"Url\": \"string\",\n    \"Hash\": \"string\",\n    \"Magnet\": \"string\",\n    \"Torrent\": \"string\",\n    \"IMDb_link\": \"string\",\n    \"Kinopoisk_link\": \"string\",\n    \"IMDb_id\": \"string\",\n    \"Kinopoisk_id\": \"string\",\n    \"Year\": \"string\",\n    \"Type\": \"string\",\n    \"Release\": \"string\",\n    \"Directer\": \"string\",\n    \"Actors\": \"string\",\n    \"Description\": \"string\",\n    \"Quality\": \"string\",\n    \"Video\": \"string\",\n    \"Audio\": \"string\",\n    \"Size\": \"string\",\n    \"Duration\": \"string\",\n    \"Transcript\": \"string\",\n    \"Seeds\": \"string\",\n    \"Peers\": \"string\",\n    \"Download_Count\": \"string\",\n    \"Files_Count\": \"string\",\n    \"Comments\": \"string\",\n    \"IMDb_Rating\": \"string\",\n    \"Kinopoisk_Rating\": \"string\",\n    \"Kinozal_Rating\": \"string\",\n    \"Votes\": \"string\",\n    \"Added_Date\": \"string\",\n    \"Update_Date\": \"string\",\n    \"Poster\": \"string\",\n    \"Posters\": [\n      \"string\"\n    ],\n    \"Files\": [\n      {\n        \"Name\": \"string\",\n        \"Size\": \"string\"\n      }\n    ]\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "Search > ID > RuTor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 3 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 3000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(3000, \"Response time is less than 3 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response has the required property\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('array')\r",
+													"    responseData.forEach((item) => {\r",
+													"        pm.expect(item).to.have.property('Name').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Url').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Hash').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Magnet').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Torrent').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Files').that.is.an('array').that.is.not.empty\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Test Files property\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('array')\r",
+													"    responseData.forEach((item) => {\r",
+													"        item.Files.forEach((file) => {\r",
+													"            pm.expect(file).to.have.property('Name').that.is.not.empty\r",
+													"            pm.expect(file).to.have.property('Size').that.is.not.empty\r",
+													"        })\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const query = pm.variables.get(\"query\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/search/title/rutor?query=${query}&page=0`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const responseData = response.json()\r",
+													"    if (Array.isArray(responseData) && responseData.length > 0) {\r",
+													"        console.log(responseData[0].Id)\r",
+													"        const id = responseData[0].Id\r",
+													"        pm.collectionVariables.set(\"RuTorTestId\", id)\r",
+													"    } else {\r",
+													"        console.error(\"Unexpected response structure or empty array.\")\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/id/rutor?query={{RuTorTestId}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"id",
+												"rutor"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{RuTorTestId}}",
+													"description": "Only id"
+												}
+											]
+										},
+										"description": "Search by id in the torrent tracker RuTor"
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/search/id/rutor?query=<integer>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"search",
+														"id",
+														"rutor"
+													],
+													"query": [
+														{
+															"key": "query",
+															"value": "<integer>",
+															"description": "(Required) ID parameter"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"Name\": \"string\",\n    \"Url\": \"string\",\n    \"Hash\": \"string\",\n    \"Magnet\": \"string\",\n    \"Torrent\": \"string\",\n    \"IMDb_link\": \"string\",\n    \"Kinopoisk_link\": \"string\",\n    \"IMDb_id\": \"string\",\n    \"Kinopoisk_id\": \"string\",\n    \"Rating\": \"string\",\n    \"Category\": \"string\",\n    \"Seeds\": \"string\",\n    \"Peers\": \"string\",\n    \"Seed_Date\": \"string\",\n    \"Add_Date\": \"string\",\n    \"Size\": \"string\",\n    \"Poster\": \"string\",\n    \"Files\": [\n      {\n        \"Name\": \"string\",\n        \"Size\": \"string\"\n      }\n    ]\n  }\n]"
+										}
+									]
+								},
+								{
+									"name": "Search > ID > NoNameClub",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const baseUrl = pm.variables.get(\"baseUrl\")\r",
+													"const query = pm.variables.get(\"query\")\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `${baseUrl}/api/search/title/nonameclub?query=${query}&page=0`,\r",
+													"    method: \"GET\"\r",
+													"}, function (err, response) {\r",
+													"    if (err) {\r",
+													"        console.error(err)\r",
+													"        return\r",
+													"    }\r",
+													"    const responseData = response.json()\r",
+													"    if (Array.isArray(responseData) && responseData.length > 0) {\r",
+													"        console.log(responseData[0].Id)\r",
+													"        const id = responseData[0].Id\r",
+													"        pm.collectionVariables.set(\"NoNameClubTestId\", id)\r",
+													"    } else {\r",
+													"        console.error(\"Unexpected response structure or empty array.\")\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200)\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response time is less than 3 seconds\", function () {\r",
+													"    if (pm.response.responseTime > 3000) {\r",
+													"        pm.test.skip(\"Response time test skipped due to long response time\")\r",
+													"    } else {\r",
+													"        pm.expect(pm.response.responseTime).to.be.below(3000, \"Response time is less than 3 seconds\")\r",
+													"    }\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Response has the required property\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('array')\r",
+													"    responseData.forEach((item) => {\r",
+													"        pm.expect(item).to.have.property('Name').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Url').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Hash').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Magnet').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Torrent').that.is.not.empty\r",
+													"        pm.expect(item).to.have.property('Files').that.is.an('array').that.is.not.empty\r",
+													"    })\r",
+													"})\r",
+													"\r",
+													"pm.test(\"Test Files property\", function () {\r",
+													"    const responseData = pm.response.json()\r",
+													"    pm.expect(responseData).to.be.an('array')\r",
+													"    responseData.forEach((item) => {\r",
+													"        item.Files.forEach((file) => {\r",
+													"            pm.expect(file).to.have.property('Name').that.is.not.empty\r",
+													"            pm.expect(file).to.have.property('Size').that.is.not.empty\r",
+													"        })\r",
+													"    })\r",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/search/id/nonameclub?query={{NoNameClubTestId}}",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"search",
+												"id",
+												"nonameclub"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "{{NoNameClubTestId}}",
+													"description": "Only id"
+												}
+											]
+										},
+										"description": "Search by id in the torrent tracker NoNameClub"
+									},
+									"response": [
+										{
+											"name": "Successful response",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/search/id/nonameclub?query=<integer>",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"search",
+														"id",
+														"nonameclub"
+													],
+													"query": [
+														{
+															"key": "query",
+															"value": "<integer>",
+															"description": "(Required) ID parameter"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"Name\": \"string\",\n    \"Url\": \"string\",\n    \"Hash\": \"string\",\n    \"Magnet\": \"string\",\n    \"Torrent\": \"string\",\n    \"IMDb_link\": \"string\",\n    \"Kinopoisk_link\": \"string\",\n    \"IMDb_id\": \"string\",\n    \"Kinopoisk_id\": \"string\",\n    \"Release\": \"string\",\n    \"Type\": \"string\",\n    \"Directer\": \"string\",\n    \"Actors\": \"string\",\n    \"Description\": \"string\",\n    \"Duration\": \"string\",\n    \"Quality\": \"string\",\n    \"Video\": \"string\",\n    \"Audio\": \"string\",\n    \"Registration\": \"string\",\n    \"Rating\": \"string\",\n    \"Votes\": \"string\",\n    \"Size\": \"string\",\n    \"Poster\": \"string\",\n    \"Files\": [\n      {\n        \"Name\": \"string\",\n        \"Size\": \"string\"\n      }\n    ]\n  }\n]"
+										}
+									]
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://127.0.0.1:8443"
+		},
+		{
+			"key": "localUrl",
+			"value": "http://127.0.0.1:8443",
+			"type": "string"
+		},
+		{
+			"key": "publicUrl",
+			"value": "https://torapi.vercel.app",
+			"type": "string"
+		},
+		{
+			"key": "mirrorUrl",
+			"value": "https://toruapi.vercel.app",
+			"type": "string"
+		},
+		{
+			"key": "query",
+			"value": "The Rookie"
+		},
+		{
+			"key": "queryAllPage",
+			"value": "test",
+			"type": "string"
+		},
+		{
+			"key": "categoryRuTracker",
+			"value": "1605",
+			"type": "string"
+		},
+		{
+			"key": "categoryKinozal",
+			"value": "20",
+			"type": "string"
+		},
+		{
+			"key": "categoryRuTor",
+			"value": "10",
+			"type": "string"
+		},
+		{
+			"key": "categoryNoNameClub",
+			"value": "1318",
+			"type": "string"
+		},
+		{
+			"key": "categoryNameRuTracker",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "categoryNameKinozal",
+			"value": ""
+		},
+		{
+			"key": "categoryNameNoNameClub",
+			"value": ""
+		},
+		{
+			"key": "RuTrackerTestId",
+			"value": ""
+		},
+		{
+			"key": "KinozalTestId",
+			"value": ""
+		},
+		{
+			"key": "RuTorTestId",
+			"value": ""
+		},
+		{
+			"key": "NoNameClubTestId",
+			"value": ""
+		},
+		{
+			"key": "categoryNameRuTor",
+			"value": ""
+		}
+	]
+}

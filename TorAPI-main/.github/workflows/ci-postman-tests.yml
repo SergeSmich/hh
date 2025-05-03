@@ -1,0 +1,193 @@
+name: Build and Postman Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      Server:
+        description: 'Local build or public server:'
+        required: false
+        default: 'Node'
+        type: choice
+        options:
+          - 'Node'
+          - 'Dockerfile'
+          - 'DockerHub'
+          - 'https://torapi.vercel.app'
+          - 'https://toruapi.vercel.app'
+          - 'https://rutorapi.vercel.app'
+      Iterations:
+        description: 'Iteration count for tests:'
+        required: false
+        default: 1
+        type: number
+      Query:
+        description: 'Search parameter for all API request:'
+        required: true
+        default: 'The Rookie'
+        type: string
+      QueryAllPage:
+        description: 'Parameter for search on all pages:'
+        required: true
+        default: 'test'
+        type: string
+      CategoryRuTracker:
+        description: 'Parameter to filter by category for RuTracker (1605 - Switch):'
+        required: true
+        default: 1605
+        type: number
+      CategoryKinozal:
+        description: 'Parameter to filter by category for Kinozal (20 - Anime):'
+        required: true
+        default: 20
+        type: number
+      CategoryRuTor:
+        description: 'Parameter to filter by category for RuTor (10 - Anime):'
+        required: true
+        default: 10
+        type: number
+      CategoryNoNameClub:
+        description: 'Parameter to filter by category for NoNameClub (1318 - Switch):'
+        required: true
+        default: 1318
+        type: number
+      DeployDocker:
+        description: 'Deploy to Docker Hub'
+        required: false
+        default: false
+        type: boolean
+      DeployVercel:
+        description: 'Deploy to Vercel'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Cache npm dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install newman
+      run: |
+        npm install -g newman
+        npm install -g newman-reporter-html
+
+    - name: Packet check
+      run: |
+        echo "node version: $(node --version)"
+        echo "npm version: $(npm --version)"
+        echo "newman version: $(newman --version)"
+
+    - name: Install dependencies and start local server
+      if: ${{ github.event.inputs.Server == 'Node' }}
+      run: |
+        npm install
+        npm start > torapi.log &
+
+    - name: Build docker image and run container
+      if: ${{ github.event.inputs.Server == 'Dockerfile' || github.event.inputs.Server == 'DockerHub' }}
+      run: |
+        if [ "${{ github.event.inputs.Server }}" == "Dockerfile" ]; then
+          echo "- Build docker image from GitHub"
+          docker build -t lifailon/torapi:latest .
+          docker run -d --name TorAPI -p 8443:8443 lifailon/torapi:latest
+        elif [ "${{ github.event.inputs.Server }}" == "DockerHub" ]; then
+          echo "- Build docker image from Docker Hub"
+          docker run -d --name TorAPI -p 8443:8443 --restart=unless-stopped lifailon/torapi:latest
+        fi
+        for i in {1..30}; do
+          response_code=$(curl -o /dev/null -s -w '%{http_code}' http://localhost:8443/api/provider/list 2> /dev/null || echo "404")
+          if [ "$response_code" -eq 200 ]; then
+            echo "Server is up: status code 200"
+            break
+          else
+            echo "Waiting for the server to start: $(($i*2)) seconds..."
+            sleep 2
+          fi
+        done
+        if [ "$response_code" -ne 200 ]; then
+          exit 1
+        fi
+
+    - name: Run postman tests
+      run: |
+        if [[ ${{ github.event.inputs.Server }} =~ ^https ]]; then
+          server=${{ github.event.inputs.Server }}
+        else
+          server="http://localhost:8443"
+        fi
+        newman run test/postman.json \
+          --iteration-count ${{ github.event.inputs.Iterations }} \
+          --env-var "baseUrl=$server" \
+          --env-var "query=${{ github.event.inputs.Query }}" \
+          --env-var "queryAllPage=${{ github.event.inputs.queryAllPage }}" \
+          --env-var "categoryRuTracker=${{ github.event.inputs.CategoryRuTracker }}" \
+          --env-var "categoryKinozal=${{ github.event.inputs.CategoryKinozal }}" \
+          --env-var "categoryRuTor=${{ github.event.inputs.CategoryRuTor }}" \
+          --env-var "categoryNoNameClub=${{ github.event.inputs.CategoryNoNameClub }}" \
+          --reporters cli,junit,html \
+          --reporter-html-export postman-report.html \
+          --reporter-junit-export postman-results.xml
+
+    - name: View local server logs
+      if: ${{ github.event.inputs.Server == 'Node' || github.event.inputs.Server == 'Dockerfile' || github.event.inputs.Server == 'DockerHub' && (success() || failure()) }}
+      run: |
+        if [ "${{ github.event.inputs.Server }}" == "Node" ]; then
+          cat torapi.log
+        else
+          docker logs TorAPI
+        fi
+
+    - name: Upload Newman HTML Report
+      uses: actions/upload-artifact@v4
+      if: success() || failure()
+      with:
+        name: Postman HTML Report
+        path: postman-report.html
+
+    - name: Publish JUnit Test Results
+      uses: mikepenz/action-junit-report@v4
+      if: success() || failure()
+      with:
+        report_paths: '**/postman-results.xml'
+
+    - name: Login to Docker Hub
+      if: ${{ github.event.inputs.DeployDocker == 'true' && success() }}
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Deploy to Docker Hub
+      if: ${{ github.event.inputs.DeployDocker == 'true' && success() }}
+      run: |
+        docker build -t lifailon/torapi:latest .
+        docker push lifailon/torapi:latest
+
+    - name: Install dependencies for deploy to Vercel
+      if: ${{ github.event.inputs.DeployVercel == 'true' && success() }}
+      run: npm install
+
+    - name: Deploy to Vercel
+      if: ${{ github.event.inputs.DeployVercel == 'true' && success() }}
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod'

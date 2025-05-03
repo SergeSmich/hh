@@ -1,0 +1,35 @@
+/* === ����� ����� === */
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #2c2c2c; color: #e0e0e0; margin: 0; padding: 20px; line-height: 1.5; padding-bottom: 80px; }
+h1, p { text-align: center; }
+h1 { color: #eee; margin-bottom: 10px;}
+p { color: #ccc; margin-top: 5px; margin-bottom: 20px;}
+
+/* === ����� ��� ������ ��������� === */
+#source-selector { text-align: center; margin-bottom: 25px; }
+.source-button { background-color: #4f4f4f; border: 1px solid #666; color: #ddd; padding: 10px 20px; margin: 0 10px; border-radius: 5px; cursor: pointer; font-size: 1em; transition: background-color 0.2s ease, border-color 0.2s ease; }
+.source-button:hover { background-color: #5f5f5f; border-color: #888; }
+.source-button.active { background-color: #d63384; color: white; border-color: #b02a6e; font-weight: bold; cursor: default; box-shadow: 0 0 8px rgba(214, 51, 132, 0.5); }
+
+/* === ����� �������� (Pornolab) === */
+#poster-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 15px; max-width: 1200px; margin: 0 auto; }
+
+/* === ������� ����� (������) (Pornolab) === */
+.poster-item { background-color: #3f3f3f; border-radius: 6px; text-align: left; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; justify-content: flex-start; overflow: hidden; position: relative; }
+.poster-item img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 4px 4px 0 0; background-color: #555; }
+.poster-item .details { padding: 8px 10px; font-size: 0.75em; line-height: 1.4; color: #ccc; flex-grow: 1; display: flex; flex-direction: column; }
+.poster-item .details p { margin: 1px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
+.poster-item .details b { color: #eee; font-weight: 500; margin-right: 5px; }
+.poster-item:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); }
+.multiplayer-indicator { position: absolute; top: 6px; right: 6px; width: 10px; height: 10px; background-color: limegreen; border-radius: 50%; border: 1px solid #228b22; box-shadow: 0 0 4px rgba(0, 255, 0, 0.6); z-index: 5; }
+
+/* === ��������� (Pornolab) === */
+.pagination { text-align: center; margin: 30px auto 20px auto; padding: 10px; }
+.page-button { display: inline-block; min-width: 35px; padding: 8px 12px; margin: 0 4px; background-color: #555; color: #eee; border: 1px solid #666; border-radius: 5px; text-decoration: none; text-align: center; font-weight: bold; transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; cursor: pointer; }
+.page-button:hover:not([disabled]):not(.active) { background-color: #666; border-color: #888; color: #fff; }
+.page-button.active { background-color: #d63384; border-color: #b02a6e; color: white; cursor: default; pointer-events: none; }
+.page-button:disabled { opacity: 0.5; cursor: not-allowed; background-color: #444; border-color: #555; color: #888; }
+
+/* === ��������� === */
+@media (max-width: 1200px) { #poster-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { body { padding: 10px; padding-bottom: 70px; } #poster-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 10px;} .poster-item .details { font-size: 0.7em; padding: 6px 8px;} .page-button { padding: 6px 10px; margin: 2px 3px; } }
+@media (max-width: 480px) { #poster-grid { grid-template-columns: repeat(1, 1fr); gap: 15px;} .page-button[data-page] { display: none; } }

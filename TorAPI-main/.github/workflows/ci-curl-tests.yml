@@ -1,0 +1,556 @@
+name: Docker Build and Curl Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      Query:
+        description: 'Parameter for API request'
+        required: true
+        default: 'The+Rookie'
+        type: string
+      Docker:
+        description: 'Image push to Docker Hub'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build docker image and run container 
+      run: |
+        docker build -t lifailon/torapi:latest .
+        docker run -d --name TorAPI -p 8443:8443 lifailon/torapi:latest
+    
+    - name: Install jq
+      run: |
+        sudo apt-get install -y jq
+        echo "jq version: $(jq --version)"
+    
+    - name: Run API tests
+      run: |
+        set +e
+
+        echo
+        echo "--- Checking the availability of data on the server:"
+        echo
+
+        rutracker=true
+        kinozal=true
+        rutor=true
+        nonameclub=true
+
+        data=$(curl -s https://rutracker.org/forum/index.php | iconv -f Windows-1251 -t UTF-8 | grep "Правила")
+        if [ -n "$data" ]; then
+          echo "RuTracker data avaliable: true"
+        else
+          echo "RuTracker data avaliable: false"
+          rutracker=false
+        fi
+
+        data=$(curl -s https://kinozal.tv | iconv -f Windows-1251 -t UTF-8 | grep "Правила")
+        if [ -n "$data" ]; then
+          echo "Kinozal data avaliable: true"
+        else
+          echo "Kinozal data avaliable: false"
+          kinozal=false
+        fi
+
+
+        data=$(curl -s https://rutor.info | grep "Правила")
+        if [ -n "$data" ]; then
+          echo "RuTor data avaliable: true"
+        else
+          echo "RuTor data avaliable: false"
+          rutor=false
+        fi
+
+        data=$(curl -s https://nnmclub.to | iconv -f Windows-1251 -t UTF-8 | grep "Правила")
+        if [ -n "$data" ]; then
+          echo "NoNameClub data avaliable: true"
+        else
+          echo "NoNameClub data avaliable: false"
+          nonameclub=false
+        fi
+
+        echo
+
+        all=20
+        successful=0
+        failed=0
+
+        echo "--- RSS:"
+        echo
+
+        echo "----- RuTracker:"
+
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/response.json https://toruapi.vercel.app/api/get/rss/rutracker -H 'accept: application/json' 2>/dev/null)
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $rutracker == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        url=$(jq -r '.[0].link // empty' /tmp/response.json 2>/dev/null)
+        data=$(jq -r '.[0].title // empty' /tmp/response.json 2>/dev/null)
+        echo "Title: $data"
+        echo "Url: $url"
+        echo
+
+        echo "----- Kinozal:"
+
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/response.json https://toruapi.vercel.app/api/get/rss/kinozal -H 'accept: application/json' 2>/dev/null)
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $kinozal == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        url=$(jq -r '.[0].link // empty' /tmp/response.json 2>/dev/null)
+        data=$(jq -r '.[0].title // empty' /tmp/response.json 2>/dev/null)
+        echo "Title: $data"
+        echo "Url: $url"
+        echo
+
+        echo "----- RuTor:"
+
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/response.json https://toruapi.vercel.app/api/get/rss/rutor -H 'accept: application/json' 2>/dev/null)
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $Kinozal == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        url=$(jq -r '.[0].link // empty' /tmp/response.json 2>/dev/null)
+        data=$(jq -r '.[0].title // empty' /tmp/response.json 2>/dev/null)
+        echo "Title: $data"
+        echo "Url: $url"
+        echo
+
+        echo "----- NoNameClub:"
+
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/response.json https://toruapi.vercel.app/api/get/rss/nonameclub -H 'accept: application/json' 2>/dev/null)
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $nonameclub == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        url=$(jq -r '.[0].link // empty' /tmp/response.json 2>/dev/null)
+        data=$(jq -r '.[0].title // empty' /tmp/response.json 2>/dev/null)
+        echo "Title: $data"
+        echo "Url: $url"
+        echo
+
+        echo "--- Search by Title:"
+        echo
+        
+        echo "Query: ${{ github.event.inputs.Query }}"
+        echo
+
+        echo "----- RuTracker:"
+
+        ### Check Response Time
+        startTime=$(date +%s%3N)
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/response.json "http://localhost:8443/api/search/title/rutracker?query=${{ github.event.inputs.Query }}" 2>/dev/null)
+        endTime=$(date +%s%3N)
+        responseTime=$((endTime - startTime))
+        echo "Response time (ms): $responseTime"
+        
+        ### Check Response Code
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $rutracker == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        ### Check Data
+        RuTrackerId=$(jq -r '.[0].Id // empty' /tmp/response.json 2>/dev/null)
+        url=$(jq -r '.[0].Url // empty' /tmp/response.json 2>/dev/null)
+        data=$(jq -r '.[0].Name // empty' /tmp/response.json 2>/dev/null)
+        if [ -n "$data" ]; then
+          echo "Check data: true"
+          successful=$((successful+1))
+        else
+          echo "Check data: false"
+          if [ $rutracker == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+        
+        echo "Id: $RuTrackerId"
+        echo "Url: $url"
+        echo "Data: $data"
+        echo
+
+        echo "----- Kinozal:"
+
+        startTime=$(date +%s%3N)
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/response.json "http://localhost:8443/api/search/title/kinozal?query=${{ github.event.inputs.Query }}" 2>/dev/null)
+        endTime=$(date +%s%3N)
+        responseTime=$((endTime - startTime))
+        echo "Response time (ms): $responseTime"
+        
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $kinozal == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        KinozalId=$(jq -r '.[0].Id // empty' /tmp/response.json 2>/dev/null)
+        url=$(jq -r '.[0].Url // empty' /tmp/response.json 2>/dev/null)
+        data=$(jq -r '.[0].Name // empty' /tmp/response.json 2>/dev/null)
+        if [ -n "$data" ]; then
+          echo "Check data: true"
+          successful=$((successful+1))
+        else
+          echo "Check data: false"
+          if [ $kinozal == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        echo "Id: $KinozalId"
+        echo "Url: $url"
+        echo "Data: $data"
+        echo
+
+        echo "----- RuTor:"
+
+        startTime=$(date +%s%3N)
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/response.json "http://localhost:8443/api/search/title/rutor?query=${{ github.event.inputs.Query }}" 2>/dev/null)
+        endTime=$(date +%s%3N)
+        responseTime=$((endTime - startTime))
+        echo "Response time (ms): $responseTime"
+        
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $rutor == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        RuTorId=$(jq -r '.[0].Id // empty' /tmp/response.json 2>/dev/null)
+        url=$(jq -r '.[0].Url // empty' /tmp/response.json 2>/dev/null)
+        data=$(jq -r '.[0].Name // empty' /tmp/response.json 2>/dev/null)
+        if [ -n "$data" ]; then
+          echo "Check data: true"
+          successful=$((successful+1))
+        else
+          echo "Check data: false"
+          if [ $rutor == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        echo "Id: $RuTorId"
+        echo "Url: $url"
+        echo "Data: $data"
+        echo
+
+        echo "----- NoNameClub:"
+
+        startTime=$(date +%s%3N)
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/response.json "http://localhost:8443/api/search/title/nonameclub?query=${{ github.event.inputs.Query }}" 2>/dev/null)
+        endTime=$(date +%s%3N)
+        responseTime=$((endTime - startTime))
+        echo "Response time (ms): $responseTime"
+        
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $nonameclub == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        NoNameClubId=$(jq -r '.[0].Id // empty' /tmp/response.json 2>/dev/null)
+        url=$(jq -r '.[0].Url // empty' /tmp/response.json 2>/dev/null)
+        data=$(jq -r '.[0].Name // empty' /tmp/response.json 2>/dev/null)
+        if [ -n "$data" ]; then
+          echo "Check data: true"
+          successful=$((successful+1))
+        else
+          echo "Check data: false"
+          if [ $nonameclub == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        echo "Id: $NoNameClubId"
+        echo "Url: $url"
+        echo "Data: $data"
+        echo
+
+        echo "--- Search by ID:"
+        echo
+        
+        echo "----- RuTracker:"
+         
+        startTime=$(date +%s%3N)
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/RuTracker.json http://localhost:8443/api/search/id/rutracker?query=$RuTrackerId 2>/dev/null)
+        endTime=$(date +%s%3N)
+        responseTime=$((endTime - startTime))
+        echo "Response time (ms): $responseTime"
+        
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $rutracker == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+        
+        data=$(jq -r '.[].Name // empty' /tmp/RuTracker.json 2>/dev/null)
+        files=$(jq -r '.[].Files[0].Name // empty' /tmp/RuTracker.json 2>/dev/null)
+        size=$(jq -r '.[].Files[0].Size // empty' /tmp/RuTracker.json 2>/dev/null)
+        if [ -n "$data" ]; then
+          echo "Check data: true"
+          successful=$((successful+1))
+        else
+          echo "Check data: false"
+          if [ $rutracker == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        echo "Data: $data"
+        echo "File: $files"
+        echo "Size: $size"
+        echo
+
+        echo "----- Kinozal:"
+
+        startTime=$(date +%s%3N)
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/Kinozal.json http://localhost:8443/api/search/id/kinozal?query=$KinozalId 2>/dev/null)
+        endTime=$(date +%s%3N)
+        responseTime=$((endTime - startTime))
+        echo "Response time (ms): $responseTime"
+        
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $kinozal == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        data=$(jq -r '.[].Name // empty' /tmp/Kinozal.json 2>/dev/null)
+        files=$(jq -r '.[].Files[0].Name // empty' /tmp/Kinozal.json 2>/dev/null)
+        size=$(jq -r '.[].Files[0].Size // empty' /tmp/Kinozal.json 2>/dev/null)
+        if [ -n "$data" ]; then
+          echo "Check data: true"
+          successful=$((successful+1))
+        else
+          echo "Check data: false"
+          if [ $kinozal == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        echo "Data: $data"
+        echo "File: $files"
+        echo "Size: $size"
+        echo
+
+        echo "----- RuTor:"
+
+        startTime=$(date +%s%3N)
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/RuTor.json http://localhost:8443/api/search/id/rutor?query=$RuTorId 2>/dev/null)
+        endTime=$(date +%s%3N)
+        responseTime=$((endTime - startTime))
+        echo "Response time (ms): $responseTime"
+        
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $rutor == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        data=$(jq -r '.[].Name // empty' /tmp/RuTor.json 2>/dev/null)
+        files=$(jq -r '.[].Files[0].Name // empty' /tmp/RuTor.json 2>/dev/null)
+        size=$(jq -r '.[].Files[0].Size // empty' /tmp/RuTor.json 2>/dev/null)
+        if [ -n "$data" ]; then
+          echo "Check data: true"
+          successful=$((successful+1))
+        else
+          echo "Check data: false"
+          if [ $rutor == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        echo "Data: $data"
+        echo "File: $files"
+        echo "Size: $size"
+        echo
+
+        echo "----- NoNameClub:"
+
+        startTime=$(date +%s%3N)
+        response=$(curl --write-out "%{http_code}" --silent --output /tmp/NoNameClub.json http://localhost:8443/api/search/id/nonameclub?query=$NoNameClubId 2>/dev/null)
+        endTime=$(date +%s%3N)
+        responseTime=$((endTime - startTime))
+        echo "Response time (ms): $responseTime"
+        
+        if [ $response -eq 200 ]; then
+          echo "Status code: $response"
+          successful=$((successful+1))
+        else
+          echo "Status code: $response"
+          if [ $nonameclub == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        data=$(jq -r '.[].Name // empty' /tmp/NoNameClub.json 2>/dev/null)
+        files=$(jq -r '.[].Files[0].Name // empty' /tmp/NoNameClub.json 2>/dev/null)
+        size=$(jq -r '.[].Files[0].Size // empty' /tmp/NoNameClub.json 2>/dev/null)
+        if [ -n "$data" ]; then
+          echo "Check data: true"
+          successful=$((successful+1))
+        else
+          echo "Check data: false"
+          if [ $nonameclub == false ]; then
+            echo "! Skip counter, data is not available on the server"
+          else
+            failed=$((failed+1))
+          fi
+        fi
+
+        echo "Data: $data"
+        echo "File: $files"
+        echo "Size: $size"
+        echo
+
+        echo "all=$all" >> $GITHUB_ENV
+        echo "successful=$successful" >> $GITHUB_ENV
+        echo "failed=$failed" >> $GITHUB_ENV
+
+    - name: View data
+      run: |
+        echo "----- RuTracker:"
+        echo
+        jq -r '.[] // empty' /tmp/RuTracker.json 2>/dev/null
+        echo
+        
+        echo "----- Kinozal:"
+        echo
+        jq -r '.[] // empty' /tmp/Kinozal.json 2>/dev/null
+        echo
+        
+        echo "----- RuTor:"
+        echo
+        jq -r '.[] // empty' /tmp/RuTor.json 2>/dev/null
+        echo
+        
+        echo "----- NoNameClub:"
+        echo
+        jq -r '.[] // empty' /tmp/NoNameClub.json 2>/dev/null
+
+    - name: Server logs
+      run: docker logs TorAPI
+
+    - name: Result
+      run: |
+        echo "Number all tests: ${{ env.all }}"
+        echo "Number successful tests: ${{ env.successful }}"
+        echo "Number failed tests: ${{ env.failed }}"
+
+        if [ ${{ env.failed }} -ne 0 ]; then
+          exit 1
+        fi
+
+    - name: Image push to Docker Hub
+      run: |
+        if [ "${{ github.event.inputs.Docker }}" = "true" ]; then
+          docker push lifailon/torapi:latest
+        else
+          echo Skip
+        fi

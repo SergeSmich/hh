@@ -1,0 +1,160 @@
+﻿/* Стиль для выезжающей панели */
+.side-panel {
+    height: 100%;
+    width: 0; /* Начальная ширина - 0 */
+    position: fixed;
+    z-index: 1100; /* Выше оверлея модалки */
+    top: 0;
+    left: 0;
+    background-color: #1f1f1f; /* Темнее основного фона */
+    overflow-x: hidden; /* Запрет горизонтального скролла */
+    transition: 0.4s; /* Плавная анимация */
+    padding-top: 60px; /* Отступ для кнопки закрытия */
+    border-right: 1px solid #444;
+    box-shadow: 3px 0px 10px rgba(0,0,0,0.5);
+}
+
+.side-panel.open {
+    width: 280px; /* Ширина открытой панели */
+}
+
+.side-panel h2 {
+    padding: 10px 15px;
+    color: #f1f1f1;
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #444;
+}
+
+.side-panel ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-panel li a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 1.1em;
+    color: #a0a0a0;
+    display: block;
+    transition: 0.2s;
+}
+
+.side-panel li a:hover,
+.side-panel li a.panel-focused { /* Подсветка при наведении и фокусе геймпада */
+    color: #f1f1f1;
+    background-color: #333;
+    outline: 2px solid dodgerblue;
+    outline-offset: -2px;
+}
+
+.side-panel hr {
+    border-color: #444;
+    margin: 20px 15px;
+}
+
+.close-panel-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    color: #818181;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+.close-panel-btn:hover {
+    color: #f1f1f1;
+}
+
+#sort-filter-options {
+    padding: 0 15px;
+    color: #a0a0a0;
+}
+#sort-filter-options p {
+    text-align: left;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* Стили для элементов фильтрации и сортировки */
+#sort-filter-options h3 {
+    margin: 15px 0 8px;
+    font-size: 16px;
+    color: #d0d0d0;
+}
+
+#sort-filter-options select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #222;
+    color: #fff;
+}
+
+.filter-group {
+    margin-bottom: 10px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 14px;
+}
+
+#apply-filters-btn, #reset-filters-btn {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#apply-filters-btn {
+    background-color: #4CAF50;
+    color: white;
+    margin-bottom: 5px;
+}
+
+#reset-filters-btn {
+    background-color: #f44336;
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* Стиль для фокуса на элементах панели */
+#sort-filter-options select.panel-focused,
+#sort-filter-options button.panel-focused {
+    outline: 2px solid #ffcc00;
+    background-color: rgba(255, 204, 0, 0.2);
+}
+
+/* Кнопка открытия панели ("бургер") */
+.open-panel-btn {
+    font-size: 25px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #ccc;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1050; /* Ниже панели, но выше контента */
+    padding: 5px 10px;
+}
+.open-panel-btn:hover {
+    color: #fff;
+}
+
+/* Сдвиг основного контента при открытии панели (опционально) */
+/* #main-content.shifted {
+    margin-left: 280px;
+    transition: margin-left 0.4s;
+} */

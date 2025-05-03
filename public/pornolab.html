@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pornolab Viewer</title>
+    <!-- Подключаем новый CSS -->
+    <link rel="stylesheet" href="pornolab.css">
+</head>
+<body>
+    <h1>Просмотр Pornolab (f=1823)</h1>
+     <!-- !!! БЛОК ВЫБОРА ИСТОЧНИКА !!! -->
+     <div id="source-selector">
+        <button class="source-button" data-source="rutracker" onclick="window.location.href='/'">Rutracker</button>
+        <button class="source-button active" data-source="pornolab">Pornolab</button>
+    </div>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <p>Клик по постеру = переход на страницу скачивания торрента.</p>
+
+    <!-- Сетка для постеров -->
+    <div id="poster-grid">
+        <p>Загрузка данных...</p>
+    </div>
+
+    <!-- Пагинация -->
+    <div id="pagination-controls" class="pagination">
+        <!-- Кнопки будут сгенерированы JavaScript -->
+    </div>
+
+    <!-- Подключаем новый JS -->
+    <script src="pornolab.js"></script>
+</body>
+</html>

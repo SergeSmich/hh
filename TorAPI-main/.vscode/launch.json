@@ -1,0 +1,42 @@
+{
+    "version": "0.3.0",
+    "configurations": [
+        {
+            "name": "Running dev using nodemon",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "dev"
+            ],
+            "console": "internalConsole"
+        },
+        {
+            "name": "Running on port 2024",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.js",
+            "args": [
+                "--port",
+                "2024"
+            ],
+        },
+        {
+            "name": "Running using Proxy",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.js",
+            "args": [
+                "--proxyAddress",
+                "192.168.3.100",
+                "--proxyPort",
+                "9090",
+                "--username",
+                "TorAPI",
+                "--password",
+                "TorAPI"
+            ]
+        }
+    ]
+}

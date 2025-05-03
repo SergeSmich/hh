@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutracker RSS Viewer</title>
+    <link rel="stylesheet" href="style.css"> <!-- Основной стиль -->
+    <link rel="stylesheet" href="nav_panel.css"> <!-- Стиль для панели -->
+    <link rel="stylesheet" href="rss_viewer.css"> <!-- Стиль для RSS -->
+</head>
+<body>
+    <!-- Левая панель навигации -->
+    <nav id="side-panel" class="side-panel">
+        <button id="close-panel-btn" class="close-panel-btn">×</button>
+        <h2>Навигация</h2>
+        <ul>
+            <li><a href="/">Главная</a></li>
+            <li><a href="/index.html">Rutracker (Игры)</a></li>
+            <li><a href="/pornolab.html">Pornolab</a></li>
+            <li><a href="/rss_viewer.html">Rutracker RSS (Игры)</a></li>
+            <!-- Добавить другие ссылки -->
+        </ul>
+        <hr>
+        <h2>Фильтр RSS (Скоро)</h2>
+        <div id="sort-filter-options">
+            <p>(Здесь будут опции фильтрации RSS)</p>
+        </div>
+        <hr>
+        <h2>Сортировка/Фильтр (Rutracker)</h2>
+        <div id="sort-filter-options">
+            <form id="filter-form">
+                <label for="filter-year">Год:</label>
+                <select id="filter-year" name="year">
+                    <option value="">Все</option>
+                    <!-- Динамически заполняется -->
+                </select>
+
+                <label for="filter-genre">Жанр:</label>
+                <select id="filter-genre" name="genre">
+                    <option value="">Все</option>
+                    <!-- Динамически заполняется -->
+                </select>
+
+                <label for="filter-voice-lang">Озвучка:</label>
+                <select id="filter-voice-lang" name="voice_lang">
+                    <option value="">Все</option>
+                    <!-- Динамически заполняется -->
+                </select>
+
+                <label for="filter-text-lang">Язык текста:</label>
+                <select id="filter-text-lang" name="text_lang">
+                    <option value="">Все</option>
+                    <!-- Динамически заполняется -->
+                </select>
+
+                <label for="filter-age-rating">Возраст:</label>
+                <select id="filter-age-rating" name="age_rating">
+                    <option value="">Все</option>
+                    <!-- Динамически заполняется -->
+                </select>
+
+                <label for="filter-multiplayer">Мультиплеер:</label>
+                <select id="filter-multiplayer" name="has_multiplayer">
+                    <option value="">Все</option>
+                    <option value="true">Есть</option>
+                    <option value="false">Нет</option>
+                </select>
+
+                <button type="button" id="apply-filters">Применить</button>
+                <button type="button" id="reset-filters">Сбросить</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <div id="main-content">
+        <header>
+            <button id="open-panel-btn" class="open-panel-btn">☰</button>
+            <h1>Лента RSS Rutracker (Игры f=1605)</h1>
+            <p>Управление: Геймпад (D-Pad/Стик - навигация, A/X - открыть ссылку, LB/RB - страницы, Start/Select - Меню)</p>
+            <p id="gamepad-status">Геймпад не обнаружен.</p>
+        </header>
+
+         <!-- Кнопки выбора источника (здесь активен RSS) -->
+        <div id="source-selector">
+            <button class="source-button" data-source="rutracker" onclick="window.location.href='/index.html'">Rutracker</button>
+            <button class="source-button" data-source="pornolab" onclick="window.location.href='/pornolab.html'">Pornolab</button>
+            <button class="source-button active" data-source="rutracker_rss">Rutracker RSS</button>
+        </div>
+
+        <!-- Сетка для RSS записей -->
+        <div id="rss-grid">
+            <p>Загрузка RSS ленты...</p>
+        </div>
+
+        <!-- Пагинация -->
+        <div id="pagination-controls" class="pagination">
+            <!-- Кнопки пагинации -->
+        </div>
+    </div> <!-- Конец main-content -->
+
+    <script src="nav_panel.js"></script> <!-- JS для панели -->
+    <script src="rss_viewer.js"></script> <!-- JS для этой страницы -->
+</body>
+</html>
